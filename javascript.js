@@ -1,38 +1,38 @@
+const buttons = document.querySelectorAll("button");
+
+buttons.forEach((button) => {
+    button.addEventListener("click", () => {
+        playRound(button.id);
+    });
+});
+
 function getComputerChoice () {
     choices = ["rock", "paper", "scissors"];
     randInt = Math.floor(Math.random() * 2);
     return choices.at(randInt);
 };
 
-function getHumanChoice () {
-    choices = ["rock", "paper", "scissors"];
+function playRound (humanChoice) {
 
-    choice = window.prompt("Rock, paper, or scissors?");
-    choice = choice.toLowerCase();
+    computerChoice = getComputerChoice();
+    console.log('Button Pressed!');
 
-    while (!(choices.includes(choice))) {
-        choice = window.prompt("No silly, rock, paper, or scissors?");
-        choice = choice.toLowerCase();
-    }
-
-    return choice;
-};
-
-function playRound (humanChoice, computerChoice) {
     if (humanChoice == computerChoice) {
         stringOutput = "You tied! You both chose " + humanChoice + ".";
-        console.log(stringOutput);
     } else if (((humanChoice == "rock") && (computerChoice == "paper")) ||
                 ((humanChoice == "paper") && (computerChoice == "scissors")) ||
                 ((humanChoice == "scissors") && (computerChoice == "rock"))) {
         stringOutput = "You lose! You chose " + humanChoice + " but the computer chose " + computerChoice + ".";
         computerScore +=1;
-        console.log(stringOutput);
     } else {
         stringOutput = "You win! You chose " + humanChoice + " but the computer chose " + computerChoice + ".";
         humanScore +=1;
-        console.log(stringOutput);
     }
+
+    document.getElementById("results").innerHTML = stringOutput;
+
+    scoreString = "<p>You: " + humanScore + "</p><p>Computer: " + computerScore + "</p>";
+    document.getElementById("score").innerHTML = scoreString;
     
 };
 
@@ -56,5 +56,3 @@ function playGame () {
     }
 
 };
-
-playGame();
